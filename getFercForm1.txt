@@ -1,0 +1,27 @@
+### Get FERC FORM 1 DBF files from ferc.gov, unzip and write them to disk
+### Currently read.dbf fails to convert at least one very important data column in the raw DBF files
+### Therefore an alternative means is used to convert these DBFs to csv which then can be read 
+### and analysed with R or another language.  
+
+library(RCurl)
+library(XML)
+
+url = "https://www.ferc.gov/docs-filing/forms/form-1/data.asp?csrt=8422989235775158613"
+con = getCurlHandle(followlocation = TRUE, cookiejar = "", verbose = TRUE, useragent = "R")
+d = getURLContent(url, curl = con)
+t = htmlParse(d)
+h = getNodeSet(t, "//ul/table/tr/td[2]/a")
+l = sapply(h, function(x) xmlGetAttr(x, 'href'))
+fileNames = sapply(l, function(x) strsplit(x, "/")[[1]][5])
+newdir = sapply(fileNames, function(x) strsplit(x, "\\.")[[1]][1])
+
+for(i in 1:length(fileNames)){
+  temp = tempfile()
+  download.file(names(fileNames[i]), temp)
+  zfiles = unzip(temp, list=TRUE)
+  exfiles = zfiles$Name[grepl(".DBF", zfiles$Name)]
+  unzip(temp, files = exfiles, exdir = paste(datadir, newdir[i], sep="/"), junkpaths=TRUE)
+  unlink(temp)
+}
+
+
