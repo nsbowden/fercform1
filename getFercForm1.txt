@@ -8,7 +8,7 @@ library(RCurl)
 library(XML)
 
 ### Define the directory where FERC Form 1 will be written
-datadir = "/home/nicholas/Documents/FERCFORM1/DataDownload2"
+datadir = "/home/nicholas/Documents/FERCFORM1/DataDownload"
 
 ### Check if datadir exists and if FALSE create it, and set as working directory
 
