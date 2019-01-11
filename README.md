@@ -30,8 +30,6 @@ pathTo/directoryOfYourChoosing/f1_2017/$ for f in *.DBF; do soffice --headless -
 
 Alternatively, the same outcome can be achieved by the following two lines from the directoryOfYourChoosing, which finds all the paths to all .DBF files in subdirectories, writes them to a text file, and then traverses the text file to convert to csv writing to each subdirectory.  
 
-##Currently overwriting the files each year because they are not written to the /f1_YEAR subdirectories but to directory of your choosing.  One of two solutions improve these shell commands of make unique file names in the download
-
 $ cd pathTo/directoryOfYourChoosing/
 pathTo/directoryOfYourChoosing$ find . -name '*.DBF' > dbfPaths.txt  
 pathTo/directoryOfYourChoosing$ for f in $(cat dbfPaths.txt); do soffice --headless --convert-to csv $f; done
