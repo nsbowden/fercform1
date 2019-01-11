@@ -3,6 +3,8 @@ R Tools for aquiring and processing FERC FORM 1 DBF files
 
 getFercForm1.txt contains a few short R code blocks that download zipfiles containing the FERC Form 1 databases files from 1994 to 2017, extracts the .DBF files and writes them to a directory of your choosing on your local machine.  This may take several hours to complete.
 
+Assign a path to the directory where you would like the files to the **datadir** variable 
+
 The .DBF files for each annual Form 1 will be stored in subdirectories of the directory of your choosing with the following form
 
 f1_1994  
