@@ -1,4 +1,4 @@
 download
-.out
-.csv
-.DBF
+*.out
+*.csv
+*.DBF
