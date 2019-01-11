@@ -8,7 +8,7 @@ library(RCurl)
 library(XML)
 
 ### Define the directory where FERC Form 1 will be written
-datadir = "/home/nicholas/Documents/FERCFORM1/DataDownload"
+datadir = "/home/nicholas/Documents/FERCFORM1/fercform1/download/"
 
 ### Check if datadir exists and if FALSE create it, and set as working directory
 
@@ -20,9 +20,11 @@ if(dir.exists(datadir)){
 }
 
 ### Define the FERC Form 1 Data page
+
 u = "https://www.ferc.gov/docs-filing/forms/form-1/data.asp?csrt=8422989235775158613"
 
 ### Get and parse the contents of the page, and then collect annual zipfile URLs 
+
 con = getCurlHandle(followlocation = TRUE, cookiejar = "", verbose = TRUE, useragent = "R")
 d = getURLContent(u, curl = con)
 t = htmlParse(d)
@@ -32,6 +34,7 @@ fileNames = sapply(l, function(x) strsplit(x, "/")[[1]][5])
 newdir = sapply(fileNames, function(x) strsplit(x, "\\.")[[1]][1])
 
 ### Download each zip to a temp file, unzip the files, get all the database tables (.DBF) file names, and then extract only those files and write them to disk  
+
 for(i in 1:length(fileNames)){
   temp = tempfile()
   download.file(names(fileNames[i]), temp)
@@ -39,5 +42,16 @@ for(i in 1:length(fileNames)){
   exfiles = zfiles$Name[grepl(".DBF", zfiles$Name)]
   unzip(temp, files = exfiles, exdir = paste(datadir, newdir[i], sep="/"), junkpaths=TRUE)
   unlink(temp)
+}
+
+##Renaming files avoids overwriting (e.g. all 1994 files are overwritten by 1995 files) that happens without it at conversion to CSV.
+ 
+for (i in 1:length(list.files())) {
+  setwd(list.files()[i])
+  a = as.character(strsplit(getwd(), "/")[[1]])
+  b = a[length(a)]
+  #print(paste0(getwd(), "/", b, "_", list.files()))
+  file.rename(list.files(), paste0(getwd(), "/", b, "_", list.files()))
+  setwd(datadir)
 }
 
