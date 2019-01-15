@@ -1,9 +1,23 @@
 # fercform1
 R Tools for aquiring and processing FERC FORM 1 DBF files
 
-getFercForm1.txt contains a few short R code blocks that download zipfiles containing the FERC Form 1 databases files from 1994 to 2017, extracts the .DBF files and writes them to a directory of your choosing on your local machine.  Decide that directory by assigning the path to the directory where you would like the files to the **datadir** variable in getFercForm1.R.  
+getFercForm1.R contains a function `getForm1()` which downloads zipfiles containing the FERC Form 1 databases files from 1994 to 2017, extracts the .DBF files and writes them to a local directory of your choosing. The write directory is the single argument passed to `getForm1()`. For example, I assign the directory path to a variable called `datadir` and pass it to `getForm1()`.   ?? The fercform1 directory exists on this path, but the download directory does not.  This directory will be created by `getForm1`.  It is also okay if it does exist, `getForm1()` just checks first and try's to create it if does and an it can.??
 
-The .DBF files for each annual Form 1 will be stored in subdirectories of the directory of your choosing with the following form
+First source the function in getFercForm1.R
+
+```
+> source('getFercForm1.R')
+```
+
+And the assign the write path to `datadir` and pass it to `getForm1`.
+
+```
+> datadir = "/home/nicholas/Documents/FERCFORM1/fercform1/download/"
+> getForm1(datadir)
+
+```
+
+The .DBF files for each annual Form 1 will be written in subdirectories in the directory of your choosing with the following form
 
 f1_1994  
 f1_1995  
@@ -11,7 +25,7 @@ f1_1996
 ...  
 f1_2017  
 
-The .DBF files can be converted using LibreOffice, which can be downloaded from: https://www.libreoffice.org/download/download/ for your appropriate operating system.
+The .DBF files can be converted using [LibreOffice](https://www.libreoffice.org/download/download/).
 
 LibreOffice can be called from the command line to process all .DBF files in any one subdirectory. For instance to convert all the .DBF files to .csv in f1_1994, the following can be used. 
 
