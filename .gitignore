@@ -2,3 +2,5 @@ download
 *.out
 *.csv
 *.DBF
+*.txt
+*form1csv
