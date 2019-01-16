@@ -2,9 +2,9 @@
 
 ## R Tools for aquiring and processing FERC FORM 1 DBF files
 
-getFercForm1.R contains a function `getForm1()` which downloads zipfiles containing the FERC Form 1 databases files from 1994 to 2017, extracts the .DBF files and writes them to a local directory of your choosing. The write directory is the single argument passed to `getForm1()`. For example, I assign the directory path to a variable called `datadir` and pass it to `getForm1()`.   The fercform1 directory exists on this path, but the download directory does not.  This directory will be created by `getForm1`.  It is also okay if it does exist, `getForm1()` just checks first and try's to create it if does and an it can.
+getFercForm1.R contains a function `getForm1()` which downloads zipfiles containing the FERC Form 1 databases files from 1994 to 2017, extracts the .DBF files and writes them to a local directory of your choosing. The write directory is the single argument passed to `getForm1()`. For example, I assign the directory path to a variable called `datadir` and pass it to `getForm1()`.  
 
-First source the function in getFercForm1.R
+First source the function in getFercForm1.R.  Alternatively, getFercForm1.R can be opened in a text editor, the contents copied and then pasted into the interpreter for execution and the equivilent result.  
 
 ```
 > source('getFercForm1.R')
