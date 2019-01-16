@@ -67,7 +67,7 @@ pathTo/directoryOfYourChoosing$ for f in $(cat dbfPaths.txt); do soffice --headl
 
 ```  
 
-For good housekeeping create a new directory and move the .csv files into it. 
+There are a 2704 csv files with a total size of approximately 850 MB. For good housekeeping create a new directory and move the .csv files into it. 
 
 ```
 pathTo/directoryOfYourChoosing$ mkdir csvFiles
