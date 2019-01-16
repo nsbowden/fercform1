@@ -1,7 +1,7 @@
 # fercform1
 R Tools for aquiring and processing FERC FORM 1 DBF files
 
-getFercForm1.R contains a function `getForm1()` which downloads zipfiles containing the FERC Form 1 databases files from 1994 to 2017, extracts the .DBF files and writes them to a local directory of your choosing. The write directory is the single argument passed to `getForm1()`. For example, I assign the directory path to a variable called `datadir` and pass it to `getForm1()`.   ?? The fercform1 directory exists on this path, but the download directory does not.  This directory will be created by `getForm1`.  It is also okay if it does exist, `getForm1()` just checks first and try's to create it if does and an it can.??
+getFercForm1.R contains a function `getForm1()` which downloads zipfiles containing the FERC Form 1 databases files from 1994 to 2017, extracts the .DBF files and writes them to a local directory of your choosing. The write directory is the single argument passed to `getForm1()`. For example, I assign the directory path to a variable called `datadir` and pass it to `getForm1()`.   The fercform1 directory exists on this path, but the download directory does not.  This directory will be created by `getForm1`.  It is also okay if it does exist, `getForm1()` just checks first and try's to create it if does and an it can.
 
 First source the function in getFercForm1.R
 
@@ -25,9 +25,13 @@ f1_1996
 ...  
 f1_2017  
 
+The combined size of the subdirectories is approximately 850 MB.  
+
+## Converting the .DBF files to .csv files
+
 The .DBF files can be converted using [LibreOffice](https://www.libreoffice.org/download/download/).
 
-LibreOffice can be called from the command line to process all .DBF files in any one subdirectory. For instance to convert all the .DBF files to .csv in f1_1994, the following can be used. 
+LibreOffice can be called from the command line to process all .DBF files in any one subdirectory. For instance to convert all the .DBF files to .csv in f1_1994, the following can be used.  
 
 $ cd pathTo/directoryOfYourChoosing/f1_1994/  
 pathTo/directoryOfYourChoosing/f1_1994/$ for f in *.DBF; do soffice --headless --convert-to csv $f; done  
