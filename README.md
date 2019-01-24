@@ -58,12 +58,12 @@ $ cd pathTo/directoryOfYourChoosing/
 pathTo/directoryOfYourChoosing$ find . -name '*.DBF' > dbfPaths.txt  
 pathTo/directoryOfYourChoosing$ for f in $(cat dbfPaths.txt); do soffice --headless --convert-to csv $f; done  
 ```  
-For illustration my pathTo/directoryOfYourChoosing was Documents/fercform1/downloads  
+For illustration my pathTo/directoryOfYourChoosing was `Documents/FERCFORM1/fercform1/download/`  
 
 ```
-$ cd pathTo/directoryOfYourChoosing/  
-pathTo/directoryOfYourChoosing$ find . -name '*.DBF' > dbfPaths.txt  
-pathTo/directoryOfYourChoosing$ for f in $(cat dbfPaths.txt); do soffice --headless --convert-to csv $f; done  
+$ cd Documents/FERCFORM1/fercform1/download/  
+Documents/FERCFORM1/fercform1/download/$ find . -name '*.DBF' > dbfPaths.txt  
+Documents/FERCFORM1/fercform1/download/$ for f in $(cat dbfPaths.txt); do soffice --headless --convert-to csv $f; done  
 
 ```  
 
@@ -75,3 +75,19 @@ pathTo/directoryOfYourChoosing$ mv *.csv csvFiles
 ```
 
 Once the .DBF files are converted to csv, they can be read by the R interpreter and used for analysis.  The foreign package in R contains a read.dbf function, but with default arguments it produces non-unique representations of the key field which links all tables across the Form 1 to each other and to utility company names. 
+
+The extractPlantInService.R file contains the `extractPlantInService()` function. Pass the location of the csv files to this function and it will return a list of dataframes. Each data frame is a panel of annual utility plant is service dollar values. The list includes intangible plant (it), steam power plant (spp), nuclear power plant (npp), hydroelectric power plant (hpp), other power plant (opp), total power plant (tpp), transmission plant (tps), distribution plant (dps), ISO plant (iso), general plant (gps), and total plant in service (ps).
+
+```
+> source('extractPlantInService.R')
+> datadir = "Documents/FERCFORM1/fercform1/csvfiles"
+> d = extractPlantInService(datadir)
+```
+
+If you load the ggplot2 library, then the different panel datasets can be visualized.  For instance, the `endBal` variable tells us the value of plant in service at the end of the year for each utility. 
+
+```
+> library(ggplot2)
+> ggplot(tpp, aes(year, endBal, color=as.factor(fercID))) + geom_line(show.legend = FALSE) + geom_text(aes(label=ifelse(year == 2016, fercID, "")), show.legend = FALSE)
+```
+
