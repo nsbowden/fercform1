@@ -41,16 +41,6 @@ pathTo/directoryOfYourChoosing/f1_1994/$ for f in *.DBF; do soffice --headless -
 
 This can be applied iteratively to get the job done, moving into each directory each time to avoid writing to some higher directory where they will be overwritten on each iteration becuase the .DBF files have the same names in each directory.
 
-```
-$ cd pathTo/directoryOfYourChoosing/f1_1995/  
-pathTo/directoryOfYourChoosing/f1_1995/$ for f in *.DBF; do soffice --headless --convert-to csv $f; done
-
-...  
-
-$ cd pathTo/directoryOfYourChoosing/f1_2017/  
-pathTo/directoryOfYourChoosing/f1_2017/$ for f in *.DBF; do soffice --headless --convert-to csv $f; done  
-```  
-
 Alternatively, the same outcome can be achieved by the following two lines from the directoryOfYourChoosing, which finds all the paths to all .DBF files in subdirectories, writes them to a text file, and then traverses the text file to convert to csv writing to each subdirectory.  
 
 ```
@@ -80,14 +70,15 @@ The extractPlantInService.R file contains the `extractPlantInService()` function
 
 ```
 > source('extractPlantInService.R')
-> datadir = "Documents/FERCFORM1/fercform1/csvfiles"
+> datadir = "home/nicholas/Documents/FERCFORM1/fercform1/csvfiles"
 > d = extractPlantInService(datadir)
 ```
 
-If you load the ggplot2 library, then the different panel datasets can be visualized.  For instance, the `endBal` variable tells us the value of plant in service at the end of the year for each utility. 
+If you load the ggplot2 library, then the different panel datasets can be visualized.  For instance, the `endBal` variable tells us the value of plant in service at the end of the year for each utility. The time series visualization of the panel of total power plant (tpp) in service illustrates one measure of restructuring that is slightly different from others used in academic research, i.e. generation divestiture rather than IPP ownership shares or ISO participation.  In addition, the visualization of transmission plant in service illustrates a measure of transmission investment year to year.  Transmission investment has been a object of interest in ISO/RTOs since 2000.     
 
 ```
 > library(ggplot2)
-> ggplot(tpp, aes(year, endBal, color=as.factor(fercID))) + geom_line(show.legend = FALSE) + geom_text(aes(label=ifelse(year == 2016, fercID, "")), show.legend = FALSE)
+> ggplot(d$tpp, aes(year, endBal, color=as.factor(fercID))) + geom_line(show.legend = FALSE) + geom_text(aes(label=ifelse(year == 2016, fercID, "")), show.legend = FALSE)
+> ggplot(d$tps, aes(year, endBal, color=as.factor(fercID))) + geom_line(show.legend = FALSE) + geom_text(aes(label=ifelse(year == 2016, fercID, "")), show.legend = FALSE)
 ```
 
