@@ -66,6 +66,8 @@ pathTo/directoryOfYourChoosing$ mv *.csv csvFiles
 
 Once the .DBF files are converted to csv, they can be read by the R interpreter and used for analysis.  The foreign package in R contains a read.dbf function, but with default arguments it produces non-unique representations of the key field which links all tables across the Form 1 to each other and to utility company names. 
 
+## Application of the FERC Form 1: Plant in Service Panel Dataset Extraction
+
 The extractPlantInService.R file contains the `extractPlantInService()` function. Pass the location of the csv files to this function and it will return a list of dataframes. Each data frame is a panel of annual utility plant is service dollar values. The list includes intangible plant (it), steam power plant (spp), nuclear power plant (npp), hydroelectric power plant (hpp), other power plant (opp), total power plant (tpp), transmission plant (tps), distribution plant (dps), ISO plant (iso), general plant (gps), and total plant in service (ps).
 
 ```
